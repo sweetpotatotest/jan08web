@@ -113,6 +113,17 @@ $(document).ready(function(){
 		}
 	});//댓글쓰기 동적생성 끝
 	
+	//id="commentcontent"
+	//id="comment-btn"
+	//댓글쓰기 창에 쓸 수 있는 글자 표시해주고 넘어가면 더이상 입력 불가로 바꾸기
+	$("#commentcontent").keyup(function(){
+        let text = $(this).val();
+        if(text.length > 100){
+           alert("100자 넘었어요.");
+           $(this).val(  text.substr(0, 100)   );   
+        }
+        $("#comment-btn").text("글쓰기 " + text.length +  "/100");
+     });
 	
 });
 </script>
