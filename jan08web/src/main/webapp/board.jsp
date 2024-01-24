@@ -46,12 +46,6 @@ td {
 	width: 20%;
 }
 
-footer {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	text-align: center;
-}
 .title a{
 	text-decoration: none;
 }
