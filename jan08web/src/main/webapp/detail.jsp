@@ -30,7 +30,7 @@ $(document).ready(function(){
 			$(this).hide();
 			comment.css('height','110');
 			comment.css('padding-top','10px');
-			comment.css('backgroundColor','#c1c1c1');
+			comment.css('backgroundColor','#1BBC9B');
 			let commentChange = comment.html().replaceAll("<br>", "\r\n");
 			//alert(cno + " : " + comment.html());
 			let recommentBox = '<div class="recommentBox">';
