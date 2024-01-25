@@ -19,34 +19,60 @@
 function del(){var ch = confirm("글을 삭제하시겠습니까?");if(ch){location.href="./delete?no=${detail.no }";}}
 function update(){if(confirm("수정하시겠습니까?")){location.href="./update?no=${detail.no }";}}
 //function commentDel(cno){if(confirm("댓글을 삭제하시겠습니까?")){location.href='./commentDel?no=${detail.no}&cno='+cno;}}
+
 $(document).ready(function(){
 	
 	$(".commentEdit").click(function(){
 		if(confirm('수정하시겠습니까?')){
-			//필요한 값 cno잡기 / 수정한 내용 + 로그인 ==== 서블릿에서 정리
 			let cno = $(this).siblings(".cno").val();
-			let comment = $(this).parents(".chead").next();//변경
+			let comment = $(this).parents(".chead").next();
 			$(this).prev().hide();
 			$(this).hide();
 			comment.css('height','110');
 			comment.css('padding-top','10px');
-			comment.css('backgroundColor','#1BBC9B');
-			let commentChange = comment.html().replaceAll("<br>", "\r\n");
-			//alert(cno + " : " + comment.html());
+			comment.css('backgroundColor','#c1c1c1');
 			let recommentBox = '<div class="recommentBox">';
-			recommentBox += '<form action="./cedit" method="post">';
-			recommentBox += '<textarea class="commentcontent" name="comment">' + commentChange + '</textarea>';
+			recommentBox += '<textarea class="commentcontent">' + (comment.html().replaceAll("<br>", "\r\n")) + '</textarea>';
 			recommentBox += '<input type="hidden" name="cno" value="' + cno + '">';
-			recommentBox += '<button class="comment-btn" type="submit">댓글 수정</button>';
-			recommentBox += '</form></div>';
-			
+			recommentBox += '<button class="comment-btn">댓글 수정</button>';
+			recommentBox += '</div>';
 			comment.html(recommentBox);
-			
 		}
 	});
-	
-	
-	
+	//댓글수정  .comment-btn버튼 눌렀을 때 .cno값, .commentcontent값 가져오는 명령 만들기
+	// 2024-01-25
+	$(document).on('click',".comment-btn", function (){
+		if(confirm('수정하시겠습니까?')){
+			let cno = $(this).prev().val();
+			let recomment = $('.commentcontent').val();
+			let comment = $(this).parents(".ccomment");//댓글 위치
+			
+			$.ajax({
+				url : './recomment',
+				type : 'post',
+				dataType : 'text',
+				data : {'cno': cno, 'comment': recomment},
+				success : function(result){
+					if(result == 1){
+						$(this).parent(".recommentBox").remove();
+						comment.css('backgroundColor','#ffffff');
+						comment.css('min-height','100px');
+						comment.css('height','auto');
+						comment.html(recomment.replace(/(?:\r\n|\r|\n)/g, '<br>'));
+						$(".commentDelete").show();
+						$(".commentEdit").show();
+					} else {
+						alert("문제가 발생했습니다. 화면을 갱신합니다.");
+						location.href='./detail?page=${param.page}&no=${detail.no}';
+					}
+				},
+				error : function(error){
+					alert('문제가 발생했습니다. : ' + error);
+				}
+			});
+		}
+		
+	});
 	
 	//댓글 삭제 버튼을 눌렀습니다.
 	$(".commentDelete").click(function(){
@@ -80,9 +106,6 @@ $(document).ready(function(){
 				}
 			});//end ajax
 		}
-		
-		
-		
 	});
 	
 	
