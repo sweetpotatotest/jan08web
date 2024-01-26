@@ -31,15 +31,14 @@ public class Members extends HttpServlet {
 		
 		AdminDAO dao = new AdminDAO();
 		List<MemberDTO> list = null;
-		if (request.getParameter("grade") != null) {
-			list = dao.memberList(Util.str2Int(request.getParameter("grade")));
+		if(request.getParameter("grade") == null || request.getParameter("grade").equals("")) {
+			list = dao.memberList();			
 		} else {
-			list = dao.memberList();
+			list = dao.memberList(Util.str2Int(request.getParameter("grade")));
 		}
 		request.setAttribute("list", list);
 		RequestDispatcher rd = request.getRequestDispatcher("/admin/members.jsp");
 		rd.forward(request, response);
-		
 	}
 
 	
@@ -55,7 +54,7 @@ public class Members extends HttpServlet {
 		MemberDAO dao = new MemberDAO();
 		int result = dao.gradeChange(dto);
 		if (result == 1) {
-			if (request.getParameter("currentgrade") == null) {
+			if (request.getParameter("currentgrade") == null || request.getParameter("currentgrade").equals("")) {
 				response.sendRedirect("./members");
 			} else {
 				response.sendRedirect("./members?grade=" + request.getParameter("currentgrade"));
