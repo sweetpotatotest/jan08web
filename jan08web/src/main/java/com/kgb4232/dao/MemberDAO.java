@@ -150,5 +150,25 @@ public class MemberDAO extends AbstractDAO{
 		
 		return data;
 	}
+
+	public int gradeChange(MemberDTO dto) {
+		int result = 0;
+		Connection con = db.getConn();
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE member SET mgrade=? WHERE mno=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, dto.getMgrade());
+			pstmt.setInt(2, dto.getMno());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(null, pstmt, con);
+		}
+		
+		return result;
+	}
 	
 }
