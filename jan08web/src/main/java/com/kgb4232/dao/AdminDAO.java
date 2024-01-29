@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kgb4232.dto.BoardDTO;
 import com.kgb4232.dto.MemberDTO;
 
 public class AdminDAO extends AbstractDAO{
@@ -70,6 +71,19 @@ public class AdminDAO extends AbstractDAO{
 		}
 		
 		
+		
+		return list;
+	}
+
+
+
+	public List<BoardDTO> boardList() {
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT mno, mid, mname, mdate, mgrade FROM member WHERE mgrade=?";
+		
+		pst
 		
 		return list;
 	}

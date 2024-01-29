@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>${sessionScope.mname }님</title>
-<link href="../css/admin.css" rel="stylesheet" />
+<link href="../css/admin.css?ver=0.12" rel="stylesheet"/>
 <link href="../css/member.css" rel="stylesheet" />
 <!-- .. 2개 생각해야됨 -->
 <script type="text/javascript" src="../js/menu.js"></script>
@@ -52,21 +52,7 @@
 	<!-- 2024-01-26 관리자 페이지 만들기 -->
 	<!-- 틀 -->
 	<div class="wrap">
-		<div class="menu">
-			<nav>
-				<ul>
-					<li onclick="url('./members')"><i class="xi-users"></i>회원 관리</li>
-					<li onclick="url('./board')"><i class="xi-document"></i>게시글 관리</li>
-					<li onclick="url('./comments')"><i class="xi-forum-o"></i>댓글
-						관리</li>
-					<li onclick="url('./info')"><i class="xi-github-alt"></i>${sessionScope.mname }
-						님</li>
-					<li></li>
-					<li></li>
-				</ul>
-			</nav>
-		</div>
-
+	<%@include file="menu.jsp" %>
 		<div class="main">
 			<article>
 				<h2>회원관리</h2>
