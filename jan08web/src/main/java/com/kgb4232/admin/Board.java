@@ -27,8 +27,11 @@ public class Board extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdminDAO dao = new AdminDAO();
 		List<BoardDTO> list = null;
-			
-		list = dao.boardList();			
+		if (request.getParameter("search") != null) {
+			list = dao.searchDAO(request.getParameter("search"));	
+		} else {
+			list = dao.boardList();			
+		}
 		
 		request.setAttribute("list", list);
 		RequestDispatcher rd = request.getRequestDispatcher("/admin/board.jsp");
