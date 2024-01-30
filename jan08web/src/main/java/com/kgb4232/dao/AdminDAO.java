@@ -53,7 +53,6 @@ public class AdminDAO extends AbstractDAO{
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, grade);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				MemberDTO e = new MemberDTO();
@@ -79,11 +78,34 @@ public class AdminDAO extends AbstractDAO{
 
 	public List<BoardDTO> boardList() {
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		Connection con = db.getConn();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT mno, mid, mname, mdate, mgrade FROM member WHERE mgrade=?";
+		String sql = "SELECT board_no, board_title, board_date, board_ip, board_del, "
+				+ "(SELECT COUNT(*) FROM visitcount v WHERE v.board_no=b.board_no) AS count, "
+				+ "(SELECT COUNT(*) FROM comment c WHERE c.board_no=b.board_no) AS comment, "
+				+ "m.mname FROM board b JOIN member m ON b.mno=m.mno ORDER BY board_no DESC";
 		
-		pst
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				BoardDTO e = new BoardDTO();
+				e.setNo(rs.getInt("board_no"));
+				e.setTitle(rs.getString("board_title"));
+				e.setWrite(rs.getString("mname")); //member에서
+				e.setDate(rs.getString("board_date"));
+				e.setCount(rs.getInt("count")); //visitcount에서
+				e.setComment(rs.getInt("comment")); //comment에서
+				e.setIp(rs.getString("board_ip"));
+				e.setDel(rs.getInt("board_del"));
+				list.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
 		
 		return list;
 	}

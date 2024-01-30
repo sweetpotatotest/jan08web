@@ -4,7 +4,7 @@ import com.kgb4232.util.Util;
 
 //리스트
 public class BoardDTO {
-	private int no, count, comment;
+	private int no, count, comment, del;
 	private String title, content, write, date, mid, ip;
 	
 	public String getMid() {
@@ -60,5 +60,11 @@ public class BoardDTO {
 	}
 	public void setIp(String ip) {
 		this.ip = ip;
+	}
+	public int getDel() {
+		return del;
+	}
+	public void setDel(int del) {
+		this.del = del;
 	} 
 }
