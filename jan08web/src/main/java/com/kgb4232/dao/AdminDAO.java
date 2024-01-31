@@ -152,4 +152,23 @@ public class AdminDAO extends AbstractDAO{
 		return list;
 	}
 
+	public int boardDel(BoardDTO dto) {
+		int result = 0;
+		Connection con = db.getConn();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "UPDATE board SET board_del='?' WHERE  board_no=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getDel()+"");
+			pstmt.setInt(1, dto.getNo());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, con);
+		}
+		return result;
+	}
+
 }
