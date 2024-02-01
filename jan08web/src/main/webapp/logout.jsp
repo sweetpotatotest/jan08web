@@ -13,7 +13,7 @@
 <body>
    <div class="container">
       <header>
-         <%@ include file="menu.jsp"%>ㄴ
+         <%@ include file="menu.jsp"%>
       </header>
       <div class="main">
          <div class="mainStyle">

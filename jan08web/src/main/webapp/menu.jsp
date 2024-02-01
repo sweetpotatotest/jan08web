@@ -8,6 +8,7 @@
 		<li onclick="url('./notice')">공지사항</li>
 		<li onclick="url('./bootstrap')">부트스트랩</li>
 		<li onclick="url('./info')">info</li>
+		<li onclick="url('./media')">미디어쿼리</li>
 		<li onclick="url('./team')">팀</li>
 		<c:choose>
 			<c:when test="${sessionScope.mname eq null}">
