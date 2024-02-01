@@ -38,10 +38,12 @@ body {
 <script type="text/javascript">
 	//console.log(window.innerWidth)
 	//console.log(window.innerHeight)
-let size = document.getElementById("size");
+window.onresize = function(event){
+	document.getElementById("size").textContent = window.innerWidth + " x " + window.innerHeight;
+}	
 </script>
 </head>
 <body>
-	<h1 id="size"></h1>
+	<h1 id="size">너비 : </h1>
 </body>
 </html>
